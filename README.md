@@ -9,16 +9,3 @@ To run this application, you will need Python 3+ and [Pipenv](https://pipenv.rea
 pipenv install
 ./bootstrap.sh 
 ```
-
-Then you can issue requests to your API. For example, with `curl`, you can issue requests like that:
-
-```bash
-# inserting a new hejnote
-curl -X POST -H "Content-Type: application/json" -d '{
-    "title": "A New Note,
-    "note": "This is the body of the note."
-}' http://localhost:5000/note
-
-# listing all incomes
-curl http://localhost:5000/note
-```
