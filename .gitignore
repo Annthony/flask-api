@@ -1,0 +1,11 @@
+# Flask stuff:
+instance/
+.webassets-cache
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# pipenv
+Pipfile.lock
