@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from marshmallow.exceptions import ValidationError
 
 from hejnote.model.item import Item, ItemSchema
 from hejnote.model.note import Note, NoteSchema
@@ -15,34 +16,47 @@ items = [
 ]
 
 
-@app.route('/item')
+@app.route('/api/item')
 def get_items():
     schema = ItemSchema(many=True)
-    return schema.dumps(items)
+    return jsonify(schema.dump(items))
 
 
-@app.route('/note')
-def get_notes():
+@app.route('/api/note') 
+def get_notes():        
     schema = NoteSchema(many=True)
-    notes = schema.dumps(
+    notes = schema.dump(
         filter(lambda i: i.type == ItemType.NOTE, items)
     )
 
-    return notes
+    return jsonify(notes)
 
 
-@app.route('/note', methods=['POST'])
+@app.route('/api/note', methods=['POST'])
 def add_note():
-    note = NoteSchema().load(request.get_json())
-    items.append(notes)
-    return "", 204
+    try:
+        note = NoteSchema().load(request.get_json())
+        items.append(note)
+        return "Note added", 200
+    except ValidationError as err:
+        return err.messages, 400
 
 
-@app.route('/todo')
+@app.route('/api/todo')
 def get_todos():
     schema = TodoSchema(many=True)
-    todos = schema.dumps(
+    todos = schema.dump(
         filter(lambda i: i.type == ItemType.TODO, items)
     )
 
-    return todos
+    return jsonify(todos)
+
+
+@app.route('/api/todo', methods=['POST'])
+def add_todo():
+    try:
+        todo = TodoSchema().load(request.get_json())
+        items.append(todo)
+        return "Todo added", 200
+    except ValidationError as err:
+        return err.messages, 400
