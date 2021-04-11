@@ -60,3 +60,7 @@ def add_todo():
         return "Todo added", 200
     except ValidationError as err:
         return err.messages, 400
+
+
+if __name__ == "__main__":
+    app.run()
