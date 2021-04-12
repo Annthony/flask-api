@@ -10,6 +10,11 @@ pipenv install
 ./bootstrap.sh 
 ```
 
+### Running pytest
+```bash
+./run-pytest.sh
+```
+
 ### Running the API with Docker
 # build the image
 ```bash
