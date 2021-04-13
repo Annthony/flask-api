@@ -1,7 +1,7 @@
 from flask import Flask
 import json
 
-from flask_api.hejnote.routes import hejnote_routes
+from hejnote.routes import hejnote_routes
 
 def setup_test():
     app = Flask(__name__)
@@ -18,6 +18,13 @@ def test_test_route():
     assert response.get_data() == b'Hej, I am working!'
     assert response.status_code == 200
 
+
+def test_btc():
+    app, client = setup_test()
+    url = '/btc'
+
+    response = client.get(url)
+    assert response.status_code == 200
 
 def test_get_items():
     app, client = setup_test()

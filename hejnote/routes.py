@@ -1,5 +1,7 @@
 from flask import jsonify, request
 from marshmallow.exceptions import ValidationError
+import requests
+import json
 
 from .model.item import Item, ItemSchema
 from .model.note import Note, NoteSchema
@@ -14,6 +16,12 @@ def hejnote_routes(app):
     @app.route('/')
     def test_route():
         return 'Hej, I am working!'
+
+
+    @app.route('/btc')
+    def get_google():
+        r = requests.get('https://api.coindesk.com/v1/bpi/currentprice/CAD.json')
+        return json.loads(r.text)
 
 
     @app.route('/api/item')
