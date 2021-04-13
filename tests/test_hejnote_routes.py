@@ -19,7 +19,7 @@ def test_test_route():
     assert response.status_code == 200
 
 
-def test_btc():
+def test_get_btc_price():
     app, client = setup_test()
     url = '/btc'
 

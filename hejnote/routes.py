@@ -19,7 +19,7 @@ def hejnote_routes(app):
 
 
     @app.route('/btc')
-    def get_google():
+    def get_btc_price():
         r = requests.get('https://api.coindesk.com/v1/bpi/currentprice/CAD.json')
         return json.loads(r.text)
 
