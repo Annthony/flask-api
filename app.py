@@ -1,5 +1,5 @@
 from flask import Flask
-from hejnote.routes import hejnote_routes
+from .hejnote.routes import hejnote_routes
 
 app = Flask(__name__)
 

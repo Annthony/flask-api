@@ -1,18 +1,13 @@
 from flask import jsonify, request
 from marshmallow.exceptions import ValidationError
 
-from hejnote.model.item import Item, ItemSchema
-from hejnote.model.note import Note, NoteSchema
-from hejnote.model.todo import Todo, TodoSchema
-from hejnote.model.item_type import ItemType
+from .model.item import Item, ItemSchema
+from .model.note import Note, NoteSchema
+from .model.todo import Todo, TodoSchema
+from .model.item_type import ItemType
 
 
-items = [
-    Note('Note 1', 'The body of note 1'),
-    Note('Note 2', 'The body of note 2'),
-    Todo('Todo 1', 'The body of todo 1'),
-    Todo('Todo 2', 'The body of todo 2'),
-]
+items = []
 
 def hejnote_routes(app):
 
@@ -45,6 +40,9 @@ def hejnote_routes(app):
             return "Note added", 200
         except ValidationError as err:
             return err.messages, 400
+        except TypeError as err:
+            return "Please provide a valid JSON body", 400
+
 
 
     @app.route('/api/todo')
@@ -65,3 +63,5 @@ def hejnote_routes(app):
             return "Todo added", 200
         except ValidationError as err:
             return err.messages, 400
+        except TypeError as err:
+            return "Please provide a valid JSON body", 400
